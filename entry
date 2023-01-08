@@ -213,6 +213,18 @@ if [[ -n "${TIMEOUT}" ]]; then
 	fi
 fi
 
+# l'option --repo met le boxon lors de l'installation, l'enlever
+args=()
+while [ $# -gt 0 ]; do
+    if [ "$1" == --repo ]; then
+        shift
+    else
+        args+=("$1")
+    fi
+    shift
+done
+set -- "${args[@]}"
+
 helm_content_decode
 if [[ "$1" != "delete" ]]; then
 	helm_repo_init
